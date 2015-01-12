@@ -1,0 +1,156 @@
+# Name:
+#	para_file 
+#
+# Purpose
+# 	Input parameter file for NLC visualization.
+#
+#  Kam Wan, Gats, Inc., Feb 6, 2013.
+
+# Data order. 
+# Tom's data is 'XYZ'. The temperature from his 'vel' files
+# has a thermal background. Therefore, the 'data_order' doesn't
+# only mean the order of the axis in the NLC code suite.
+#data_order = XYZ
+
+# Triple-code's is 'ZYX'. Also Triple-code data has 
+# one 'extra' grid along the z.
+# As of Jan 2013, a temperature gradient background will be
+# added to data with data_order 'ZYX'.
+data_order = ZYX
+
+# Triple code version number. 2 or 3 only allowed.
+triple_version = 3
+
+# Path of floating input data
+flt_data_path = /u/US_SCRATCH2/kamwan/R25003d-20/run01/vol07
+#flt_data_path = /u/US_SCRATCH3/kamwan/R28003d-10/run04/vol12
+flt_fn_root = run01.txyz.07
+ncpu = 360
+# Grid sizes of original turbulent data.
+orig_nx = 1440
+orig_ny = 720
+orig_nz = 721
+# Number of digits in cpu-file-extension
+ext_ndig = 4
+
+# Non-dim domain width and height
+xmax = 38.0
+zmax = 19.0
+
+# Length of billow in Km
+billow_length = 10.
+# Number of KH billows
+num_billows = 1xx
+
+# Number of diagnostic volume to extract.
+num_diag_vols = 1
+# Index start with 0.
+# No space between values.
+diag_vol_lst = 3
+
+# Grid sizes extracted from the original data, according the
+# s_ and e_ parameters below.
+# Subvol starting grid index and ending grid index.
+s_nx = 0
+e_nx = 360
+s_ny = 0
+e_ny = 180
+s_nz = 240
+e_nz = 480
+
+# Reduced grid sizes (of the extracted sub-volume)
+# used in visualization. The reduction was done using 'rebin()'
+nx_red = 360
+ny_red = 180
+nz_red = 240
+
+# Save floating point data with thermal background? 1 => Save them.
+save_subv = 1
+
+# Visualization program. ogle  or pv
+visual_prog = pv
+# For using Paraview (only), after subvol has been extracted.
+cm_format = lst
+#cm_format = xml
+# 1 ==> no getting subvolume, only calc colormap. 0 => get subvol, and colormap.
+colormap_only = 0
+
+#
+# Root of the input file name for visualization
+in_fn = run01_vol07
+#
+
+# FWHM of NLC layer (number of vertical grids and that is optical
+# depth). It was suggested to use 2km.
+# The value of these parameters refers to the original data (e.g. from 
+# triple-code). 
+
+###### For Ogle visualization  #############
+opacity_fwhm = 18 
+color_fwhm = 18
+# Layer height
+layer_ht = 396 
+# Opacity file name
+opa_fn = op.alpha
+# Opacity profile. 'G' : Gaussian with FWHM = opt_depth.
+# This probably will not change.
+# There is not quotation marks.
+opacity_prof = G
+# Colormap file name
+color_fn = color.color
+# Colormap profile. 'G': Symmetric Gaussian, 'L': Symmetric linear.
+# 'UW': All max white. This case doesn't work.
+# 'GW': Like 'G', but with green and red having the same value as blue.
+# 'LSR': Linear symmetric, REVERSED, to the middle of the NLC layer.
+# Dave prefers 'G'
+# There is not quotation marks.
+color_prof = GW 
+
+# Reduction parameters 
+opac_reduce = 0.07
+# Brightness reduction factor.
+b_reduce = 0.7
+
+# Ogle command
+ogle = '/home/kwan/Apps/Ogle/ogle_32bit'
+
+# View direction.
+# The 'angles' values in the Transform variable in the
+# ogle script for a view direction depends on the data order.
+# Their value is rotation around the x, y and z axes.
+# The view1, 2, 3 are along one of the axis. 1 => to plot it. 
+view1 = 0   # For XYZ data order, View along y-axis, (270 0 0);
+view2 = 0   # For XYZ data order, view up along z-axis is (180 0 0);
+view3 = 0   # For XYZ data order, view along -ve x-axis is (270 0 270).
+view4 = 1   # Use the ang_x, _y, _z values.
+ang_x = 290
+ang_y = 350
+ang_z = 350
+
+# Display data ranges. The first two values are the limits. 
+# The third value is stride.
+x_range = 0 360 1
+y_range = 0 720 1
+z_range = 0 360 1
+
+
+####### For Paraview visualization #################
+# The number of layer depth and layer height pair.
+num_deps = 1
+# Layer Depths.
+# No space between the values of layer_deps.
+layer_deps = 05km
+# The value for Gaussian width for both color and opacity.
+# # (in non-dim unit)
+pv_fwhm = 0.475
+
+# Layser heights labels and non-dim values.
+num_hts = 3
+# No space between the values of layer_hts.
+layer_hts = m02km,m04km,m06km
+pv_layer_hts = -0.19, -0.38, -0.57
+
+opacity_max = 0.01
+white_max = 0.7
+
+
